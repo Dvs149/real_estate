@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, MapPin, Home, DollarSign, Bed, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { Location, PropertyType } from '../types';
 import { getLocations, getPropertyTypes } from '../services/api';
 
@@ -64,23 +65,33 @@ export default function HeroSearch({ locations: initialLocations = [], propertyT
         <button
           type="button"
           onClick={() => setPurpose('buy')}
-          className={`px-6 py-2.5 rounded-full text-sm font-bold transition-all ${
-            purpose === 'buy'
-              ? 'bg-amber-400 text-slate-950 shadow-md shadow-amber-400/20'
-              : 'text-slate-400 hover:text-white hover:bg-slate-800'
+          className={`relative px-6 py-2.5 rounded-full text-sm font-bold transition-colors z-10 ${
+            purpose === 'buy' ? 'text-slate-950 font-extrabold' : 'text-slate-400 hover:text-white hover:bg-slate-800/40'
           }`}
         >
+          {purpose === 'buy' && (
+            <motion.span
+              layoutId="hero-purpose-pill"
+              className="absolute inset-0 bg-amber-400 rounded-full shadow-md shadow-amber-400/20 -z-10"
+              transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+            />
+          )}
           BUY PROPERTY
         </button>
         <button
           type="button"
           onClick={() => setPurpose('rent')}
-          className={`px-6 py-2.5 rounded-full text-sm font-bold transition-all ${
-            purpose === 'rent'
-              ? 'bg-amber-400 text-slate-950 shadow-md shadow-amber-400/20'
-              : 'text-slate-400 hover:text-white hover:bg-slate-800'
+          className={`relative px-6 py-2.5 rounded-full text-sm font-bold transition-colors z-10 ${
+            purpose === 'rent' ? 'text-slate-950 font-extrabold' : 'text-slate-400 hover:text-white hover:bg-slate-800/40'
           }`}
         >
+          {purpose === 'rent' && (
+            <motion.span
+              layoutId="hero-purpose-pill"
+              className="absolute inset-0 bg-amber-400 rounded-full shadow-md shadow-amber-400/20 -z-10"
+              transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+            />
+          )}
           RENT PROPERTY
         </button>
       </div>

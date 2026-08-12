@@ -4,6 +4,7 @@ import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Building2, Heart, User as UserIcon, Menu, X, LogOut, LayoutDashboard, Shield, ChevronDown } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { useAuth } from '../hooks/useAuth';
 
 function NavbarContent() {
@@ -73,19 +74,26 @@ function NavbarContent() {
         </Link>
 
         {/* Desktop Nav Links */}
-        <nav className="hidden md:flex items-center gap-1 bg-slate-800/40 p-1.5 rounded-full border border-slate-700/50 backdrop-blur-md">
+        <nav className="hidden md:flex items-center gap-1 bg-slate-800/40 p-1.5 rounded-full border border-slate-700/50 backdrop-blur-md relative">
           {navLinks.map((link) => {
             const active = isLinkActive(link);
             return (
               <Link
                 key={link.name}
                 href={link.href}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
+                className={`relative px-4 py-1.5 rounded-full text-sm font-medium transition-colors z-10 ${
                   active
-                    ? 'bg-amber-400 text-slate-950 font-semibold shadow-md shadow-amber-400/20'
-                    : 'text-slate-300 hover:text-white hover:bg-slate-700/40'
+                    ? 'text-slate-950 font-bold'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-700/30'
                 }`}
               >
+                {active && (
+                  <motion.span
+                    layoutId="nav-active-pill"
+                    className="absolute inset-0 bg-amber-400 rounded-full shadow-md shadow-amber-400/20 -z-10"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                )}
                 {link.name}
               </Link>
             );
